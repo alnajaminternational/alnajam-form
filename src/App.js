@@ -356,7 +356,7 @@ export default function App(){
   ]);
   const [lastEmploymentDate,setLastEmploymentDate]=useState("");
   const [currentlyEmployed,setCurrentlyEmployed]=useState("");
-  const [dateLeft,setDateLeft]=useState("");
+  const [dateLeft,setDateLeft]=useState(null);
   const [references,setReferences]=useState([
     {name:"",jobTitle:"",home:"",work:"",email:"",consent:""},
     {name:"",jobTitle:"",home:"",work:"",email:"",consent:""},
@@ -400,7 +400,7 @@ export default function App(){
       passportExpiry:fmt(passportExpiry),
       dob:fmt(dob),age:dob?.year?String(new Date().getFullYear()-parseInt(dob.year)):'',gender,nationality,religion,maritalStatus,
       height,weight,gccExp,english,dependents,availability,
-      email,phone,address,emergencyName,emergencyMobile,currentlyEmployed,dateLeft,
+      email,phone,address,emergencyName,emergencyMobile,currentlyEmployed,dateLeft:fmt(dateLeft),
       qualLevel,gradCountry,
       qualifications:qualifications.map(q=>({date:fmt(q.dateRange),degree:q.degree,institution:q.institution,country:q.country})),
       training:training.map(t=>({date:fmt(t.dateRange),discipline:t.discipline,institution:t.institution,country:t.country,courseTitle:t.courseTitle||''})),
@@ -461,8 +461,8 @@ export default function App(){
 
       {/* HEADER */}
       <header className="form-header">
-        <div className="header-inner" style={{display:"flex",alignItems:"center",justifyContent:"center",gap:"14px"}}>
-          <img src="/logo.png" alt="Al Najam International" className="header-logo" style={{width:"70px",height:"70px",objectFit:"contain"}}/>
+        <div className="header-inner">
+          <img src="/logo.png" alt="Al Najam International" className="header-logo"/>
           <div className="header-text">
             <h1 className="header-title">RECRUITMENT APPLICATION FORM</h1>
             <p className="header-sub">Al Najam International — Human Resource Providers Since 1971 &nbsp;|&nbsp; License # 0899/LHR</p>
@@ -533,7 +533,7 @@ export default function App(){
 
         {/* Row 1: Full Name + CNIC */}
         <div className="form-grid-2">
-          <Field label="Full Name" required hint="As per your degree certificate">
+          <Field label="Full Name — as per your degree" required>
             <input className="input" value={fullName} onChange={e=>setFullName(e.target.value)} placeholder="Full name as per your degree" required/>
           </Field>
           <Field label="CNIC" required>
@@ -661,7 +661,7 @@ export default function App(){
             </Field>
             {currentlyEmployed==="No" && (
               <Field label="Date Left Last Employment">
-                <input className="input" value={dateLeft} onChange={e=>setDateLeft(e.target.value)} placeholder="DD MMM YYYY"/>
+                <DayMonthYearPicker value={dateLeft} onChange={setDateLeft}/>
               </Field>
             )}
           </div>

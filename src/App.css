@@ -153,3 +153,48 @@ select.input:disabled { background-color: var(--grey-light); cursor: not-allowed
   .date-range-row { flex-wrap: wrap; }
   .upload-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ── Header fix — logo and text side by side, no gap ── */
+.header-inner { justify-content: center; gap: 12px !important; }
+.header-text { text-align: left; flex: 0 1 auto; }
+.header-title { font-size: 18px !important; }
+
+/* ── Contact / Emergency / Employment blocks ── */
+.contact-block { background: #FFF8E1; border-left: 4px solid #B8860B; border-radius: 0 8px 8px 0; padding: 14px 16px; margin: 16px 0; }
+.contact-block-title { font-size: 13px; font-weight: 700; color: #B8860B; margin-bottom: 10px; }
+.emergency-block { background: #FFEBEE; border-left: 4px solid #C62D33; border-radius: 0 8px 8px 0; padding: 14px 16px; margin: 16px 0; }
+.emergency-block-title { font-size: 13px; font-weight: 700; color: #C62D33; margin-bottom: 10px; }
+.employment-block { background: #E8F5E9; border-left: 4px solid #2E7D32; border-radius: 0 8px 8px 0; padding: 14px 16px; margin: 16px 0; }
+.employment-block-title { font-size: 13px; font-weight: 700; color: #2E7D32; margin-bottom: 10px; }
+
+/* ── Age display ── */
+.age-display { background: #EDE7F6; border: 1px solid #B39DDB; border-radius: 6px; padding: 9px 12px; font-size: 14px; color: #4A148C; font-weight: 600; display: flex; align-items: center; min-height: 42px; }
+
+/* ── Date range — side by side ── */
+.date-range { display: flex; flex-direction: row; gap: 12px; align-items: flex-start; flex-wrap: wrap; }
+.date-range-row { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 180px; }
+.date-range-label { font-size: 12px; font-weight: 600; color: var(--grey-mid); width: 28px; flex-shrink: 0; }
+
+/* ── NGHA section ── */
+.ngha-additional { border: 2px solid #C62D33 !important; border-radius: 10px; background: #fff9f9; margin-top: 16px; }
+.subsection-title { font-weight: 700; font-size: 14px; color: #C62D33; margin: 20px 0 10px; border-bottom: 1px solid #f0c0c0; padding-bottom: 6px; }
+.checkbox-group { display: flex; flex-wrap: wrap; gap: 16px; padding: 10px 0; }
+.checkbox-label { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 6px 12px; min-width: 110px; }
+.checkbox-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: #C62D33; flex-shrink: 0; }
+.disclosure-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+.disclosure-table th { background: #C62D33; color: #fff; padding: 8px; text-align: left; }
+.disclosure-table td { padding: 6px; border: 1px solid #eee; }
+.disclosure-table .input { border: none; padding: 4px 6px; font-size: 13px; background: transparent; }
+.btn-add-row { background: none; border: 1px dashed #C62D33; color: #C62D33; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; margin-top: 6px; }
+
+/* ── Document upload section ── */
+.doc-upload-section { background: linear-gradient(135deg, #C62D33 0%, #9a1f27 100%); border-radius: 10px; padding: 20px; margin: 16px 0; }
+.doc-upload-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.doc-upload-note { font-size: 12px; color: rgba(255,255,255,0.85); margin-bottom: 3px; }
+.doc-group-title { font-size: 13px; font-weight: 700; color: #FFD54F; margin: 16px 0 8px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; }
+.doc-upload-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
+.doc-upload-grid .inline-upload { background: rgba(255,255,255,0.92); border: none; color: #5c0000; font-weight: 600; width: 100%; justify-content: center; }
+.doc-upload-grid .inline-upload:hover { background: #fff; }
+.doc-upload-grid .inline-placeholder { color: #5c0000; }
+.doc-upload-grid .inline-chosen { color: #2E7D32; }
+.doc-dataflow-note { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 4px; font-style: italic; }
