@@ -842,43 +842,6 @@ export default function App(){
                 </>}
               </div>
             )}
-
-            {/* Courses & Certificates */}
-            <div className="subsection-title">Courses &amp; Certificates Attended</div>
-            {courses.map((c,i)=>(
-              <div key={i} className="repeating-row">
-                <div className="repeating-row-header">
-                  <span className="row-num">#{i+1}</span>
-                  {courses.length>1&&<RemoveRowButton onClick={()=>removeRow(setCourses,i)}/>}
-                </div>
-                <div className="form-grid-3">
-                  <Field label="Course / Training Name"><input className="input" value={c.name} onChange={e=>updateRow(setCourses,i,"name",e.target.value)} placeholder="Course name"/></Field>
-                  <Field label="Date Attended"><input className="input" value={c.date} onChange={e=>updateRow(setCourses,i,"date",e.target.value)} placeholder="e.g. Jan 2020"/></Field>
-                  <Field label="Course Title / Certificate"><input className="input" value={c.title} onChange={e=>updateRow(setCourses,i,"title",e.target.value)} placeholder="Certificate title"/></Field>
-                </div>
-              </div>
-            ))}
-            <AddRowButton onClick={()=>addRow(setCourses,{name:"",date:"",title:""})} label="Course"/>
-
-            {/* Employment Status */}
-            <div className="fields-grid">
-              <Field label="Are you currently employed?">
-                <select className="input" value={currentlyEmployed} onChange={e=>setCurrentlyEmployed(e.target.value)}>
-                  <option value="">Select</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-              </Field>
-              {currentlyEmployed==="No" && <>
-                <Field label="Last Date of Employment">
-                  <input className="input" value={lastEmploymentDate} onChange={e=>setLastEmploymentDate(e.target.value)} placeholder="e.g. 31 Dec 2023"/>
-                </Field>
-                <Field label="Date Left Last Employment">
-                  <input className="input" value={dateLeft} onChange={e=>setDateLeft(e.target.value)} placeholder="e.g. 31 Dec 2023"/>
-                </Field>
-              </>}
-            </div>
-
             {/* NGHA Disclosure */}
             <div className="subsection-title">Disclosure — Relatives/Acquaintances in NGHA</div>
             <p className="section-note">Please list any relatives or acquaintances currently employed in any Ministry of National Guard Health Affairs facility.</p>
