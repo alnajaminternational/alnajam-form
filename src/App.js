@@ -369,6 +369,8 @@ export default function App(){
     {name:"",position:"",department:"",relationship:""},
   ]);
 
+  const [applicantSignature,setApplicantSignature]=useState('');
+
   // Documents
   const [docs,setDocs]=useState({});
   const [photoPreview,setPhotoPreview]=useState(null);
@@ -406,6 +408,7 @@ export default function App(){
       training:training.map(t=>({date:fmt(t.dateRange),discipline:t.discipline,institution:t.institution,country:t.country,courseTitle:t.courseTitle||''})),
       licenses:licenses.map(l=>({licenseNo:l.licenseNo,designation:l.designation,issueDate:fmt(l.issueDate),expiryDate:fmt(l.expiryDate),authority:l.authority})),
       experience:experience.map(ex=>({date:fmt(ex.dateRange),position:ex.position,institution:ex.institution,country:ex.country,wardUnit:ex.wardUnit||''})),
+      applicantSignature,
       documents:docs,
       // NGHA Additional Fields
       nghaLocations,placeOfBirth,permanentAddress,currentAddress,
@@ -908,7 +911,23 @@ export default function App(){
           </div>
         )}
 
-        {/* ── DOCUMENT UPLOADS ── */}
+
+        {/* ── SECTION 9: DECLARATION & SIGNATURE ── */}
+        <div className="section-card">
+          <SectionHeader number="9" title="Declaration &amp; Signature"/>
+          <p className="section-note">By signing below, you confirm that all information provided is accurate and complete to the best of your knowledge.</p>
+          <div className="form-grid-2">
+            <Field label="Type your full name as signature" required>
+              <input className="input" value={applicantSignature} onChange={e=>setApplicantSignature(e.target.value)} placeholder="Type your full name here"/>
+              {applicantSignature && <div className="signature-preview">{applicantSignature}</div>}
+            </Field>
+            <Field label="Date">
+              <div className="input" style={{background:"#f5f5f5",color:"#666"}}>{new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})}</div>
+            </Field>
+          </div>
+        </div>
+
+                {/* ── DOCUMENT UPLOADS ── */}
         <div className="doc-upload-section">
           <div className="doc-upload-header">
             <span className="section-number">📎</span>
