@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0Gj5OsiWfgyOgJxoy8pAIG1z4C4u0NWelbIbf5FeJBkzuM7eyH3i3U9TcmPfYMuBw7g/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrpiJYobZPwaWV8YZoM9JdegonbuKdtuuiBP6mH8uWZ57bTsSsNURy24Y3eGMnLVI6Tg/exec";
 
 // ── Sector / Position / Professional Level data ───────────────────────────────
 const SECTOR_DATA = {
