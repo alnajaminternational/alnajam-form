@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYj7ihqSiZ5V541jSQDtXPYUJeeMWNQo_GvIdrgqgiLbIxAbqqIYFfhLM-eOtWGWMhyw/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0Gj5OsiWfgyOgJxoy8pAIG1z4C4u0NWelbIbf5FeJBkzuM7eyH3i3U9TcmPfYMuBw7g/exec";
 
 // ── Sector / Position / Professional Level data ───────────────────────────────
 const SECTOR_DATA = {
@@ -659,9 +659,11 @@ export default function App(){
                 <option value="">Select</option><option value="Yes">Yes</option><option value="No">No</option>
               </select>
             </Field>
-            <Field label="Date Left Last Employment">
-              <DayMonthYearPicker value={dateLeft} onChange={setDateLeft}/>
-            </Field>
+            {currentlyEmployed==="No" && (
+              <Field label="Date Left Last Employment">
+                <DayMonthYearPicker value={dateLeft} onChange={setDateLeft}/>
+              </Field>
+            )}
           </div>
         </div>
 
@@ -758,8 +760,6 @@ export default function App(){
               <Field label="Position / Designation"><input className="input" value={ex.position} onChange={e=>updateRow(setExperience,i,"position",e.target.value)} placeholder="e.g. Consultant Physician"/></Field>
               <Field label="Institution / Employer"><input className="input" value={ex.institution} onChange={e=>updateRow(setExperience,i,"institution",e.target.value)} placeholder="Hospital / Company name"/></Field>
               <Field label="Country"><input className="input" value={ex.country} onChange={e=>updateRow(setExperience,i,"country",e.target.value)} placeholder="e.g. Pakistan"/></Field>
-            </div>
-            <div className="form-grid-1" style={{marginTop:"10px"}}>
               <Field label="Ward / Unit / Dept — Nurses Only" hint="No. of beds in unit / nurse-to-patient ratio, if applicable"><input className="input" value={ex.wardUnit||""} onChange={e=>updateRow(setExperience,i,"wardUnit",e.target.value)} placeholder="e.g. ICU — 20 beds — 1:2 ratio"/></Field>
             </div>
           </div>
@@ -811,6 +811,19 @@ export default function App(){
               </div>
             </Field>
 
+            {/* Personal */}
+            <div className="fields-grid">
+              <Field label="Place of Birth (including Country)">
+                <input className="input" value={placeOfBirth} onChange={e=>setPlaceOfBirth(e.target.value)} placeholder="e.g. Lahore, Pakistan"/>
+              </Field>
+              <Field label="Permanent Address">
+                <input className="input" value={permanentAddress} onChange={e=>setPermanentAddress(e.target.value)} placeholder="Full permanent address"/>
+              </Field>
+              <Field label="Current Address (if different from permanent)">
+                <input className="input" value={currentAddress} onChange={e=>setCurrentAddress(e.target.value)} placeholder="Leave blank if same as permanent"/>
+              </Field>
+            </div>
+
             {/* Spouse */}
             {maritalStatus==="Married" && (
               <div className="fields-grid">
@@ -842,6 +855,39 @@ export default function App(){
                 </>}
               </div>
             )}
+
+            {/* Courses & Certificates */}
+            <div className="subsection-title">Courses & Certificates Attended</div>
+            {courses.map((c,i)=>(
+              <div key={i} className="row-card">
+                <div className="fields-grid">
+                  <Field label="Course / Training Name"><input className="input" value={c.name} onChange={e=>updateRow(setCourses,i,"name",e.target.value)} placeholder="Course name"/></Field>
+                  <Field label="Date Attended"><input className="input" value={c.date} onChange={e=>updateRow(setCourses,i,"date",e.target.value)} placeholder="e.g. Jan 2020"/></Field>
+                  <Field label="Course Title / Certificate"><input className="input" value={c.title} onChange={e=>updateRow(setCourses,i,"title",e.target.value)} placeholder="Certificate title"/></Field>
+                </div>
+              </div>
+            ))}
+            <button type="button" className="btn-add-row" onClick={()=>addRow(setCourses,{name:"",date:"",title:""})}>+ Add Course</button>
+
+            {/* Employment Status */}
+            <div className="fields-grid">
+              <Field label="Are you currently employed?">
+                <select className="input" value={currentlyEmployed} onChange={e=>setCurrentlyEmployed(e.target.value)}>
+                  <option value="">Select</option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </Field>
+              {currentlyEmployed==="No" && <>
+                <Field label="Last Date of Employment">
+                  <input className="input" value={lastEmploymentDate} onChange={e=>setLastEmploymentDate(e.target.value)} placeholder="e.g. 31 Dec 2023"/>
+                </Field>
+                <Field label="Date Left Last Employment">
+                  <input className="input" value={dateLeft} onChange={e=>setDateLeft(e.target.value)} placeholder="e.g. 31 Dec 2023"/>
+                </Field>
+              </>}
+            </div>
+
             {/* NGHA Disclosure */}
             <div className="subsection-title">Disclosure — Relatives/Acquaintances in NGHA</div>
             <p className="section-note">Please list any relatives or acquaintances currently employed in any Ministry of National Guard Health Affairs facility.</p>
