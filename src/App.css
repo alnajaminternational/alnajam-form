@@ -198,3 +198,13 @@ select.input:disabled { background-color: var(--grey-light); cursor: not-allowed
 .doc-upload-grid .inline-placeholder { color: #5c0000; }
 .doc-upload-grid .inline-chosen { color: #2E7D32; }
 .doc-dataflow-note { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 4px; font-style: italic; }
+
+.signature-preview {
+  margin-top: 8px;
+  padding: 8px 12px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 22px;
+  color: #1a1a8c;
+  border-bottom: 1px solid #333;
+  min-height: 40px;
+}
