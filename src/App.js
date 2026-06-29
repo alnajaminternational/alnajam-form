@@ -324,8 +324,8 @@ export default function App(){
 
   // S6 — Licensing
   const [licenses,setLicenses]=useState([
-    {licenseNo:"",designation:"",issueDate:null,expiryDate:null,authority:""},
-    {licenseNo:"",designation:"",issueDate:null,expiryDate:null,authority:""},
+    {licensingBody:"",country:"",designation:"",licenseNo:"",issueDate:null,expiryDate:null},
+    {licensingBody:"",country:"",designation:"",licenseNo:"",issueDate:null,expiryDate:null},
   ]);
 
   // S7 — Experience
@@ -406,7 +406,7 @@ export default function App(){
       qualLevel,gradCountry,
       qualifications:qualifications.map(q=>({date:fmt(q.dateRange),degree:q.degree,institution:q.institution,country:q.country})),
       training:training.map(t=>({date:fmt(t.dateRange),discipline:t.discipline,institution:t.institution,country:t.country,courseTitle:t.courseTitle||''})),
-      licenses:licenses.map(l=>({licenseNo:l.licenseNo,designation:l.designation,issueDate:fmt(l.issueDate),expiryDate:fmt(l.expiryDate),authority:l.authority})),
+      licenses:licenses.map(l=>({licensingBody:l.licensingBody,country:l.country,designation:l.designation,licenseNo:l.licenseNo,issueDate:fmt(l.issueDate),expiryDate:fmt(l.expiryDate),authority:l.licensingBody})),
       experience:experience.map(ex=>({date:fmt(ex.dateRange),position:ex.position,institution:ex.institution,country:ex.country,wardUnit:ex.wardUnit||''})),
       applicantSignature,
       documents:docs,
@@ -739,15 +739,16 @@ export default function App(){
               {licenses.length>1&&<RemoveRowButton onClick={()=>removeRow(setLicenses,i)}/>}
             </div>
             <div className="form-grid-2">
+              <Field label="Licensing Body"><input className="input" value={l.licensingBody} onChange={e=>updateRow(setLicenses,i,"licensingBody",e.target.value)} placeholder="e.g. PMDC, DHA, MOH Saudi Arabia"/></Field>
+              <Field label="Country"><input className="input" value={l.country} onChange={e=>updateRow(setLicenses,i,"country",e.target.value)} placeholder="e.g. Pakistan, Saudi Arabia"/></Field>
+              <Field label="Designation"><input className="input" value={l.designation} onChange={e=>updateRow(setLicenses,i,"designation",e.target.value)} placeholder="e.g. Physician, Registered Nurse"/></Field>
               <Field label="License Number"><input className="input" value={l.licenseNo} onChange={e=>updateRow(setLicenses,i,"licenseNo",e.target.value)} placeholder="e.g. PMDC-12345"/></Field>
-              <Field label="Designation"><input className="input" value={l.designation} onChange={e=>updateRow(setLicenses,i,"designation",e.target.value)} placeholder="e.g. Physician"/></Field>
               <Field label="Issue Date"><DayMonthYearPicker value={l.issueDate} onChange={v=>updateRow(setLicenses,i,"issueDate",v)}/></Field>
               <Field label="Expiry Date"><DayMonthYearPicker value={l.expiryDate} onChange={v=>updateRow(setLicenses,i,"expiryDate",v)} futureYears={true}/></Field>
-              <Field label="Licensing Authority"><input className="input" value={l.authority} onChange={e=>updateRow(setLicenses,i,"authority",e.target.value)} placeholder="e.g. PMDC, DHA, MOH"/></Field>
             </div>
           </div>
         ))}
-        <AddRowButton onClick={()=>addRow(setLicenses,{licenseNo:"",designation:"",issueDate:null,expiryDate:null,authority:""})} label="License"/>
+        <AddRowButton onClick={()=>addRow(setLicenses,{licensingBody:"",country:"",designation:"",licenseNo:"",issueDate:null,expiryDate:null})} label="License"/>
 
 
         {/* ── SECTION 7: EXPERIENCE ── */}
