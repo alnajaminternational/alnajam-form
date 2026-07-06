@@ -324,8 +324,8 @@ export default function App(){
 
   // S6 — Licensing
   const [licenses,setLicenses]=useState([
-    {licensingBody:"",country:"",designation:"",licenseNo:"",issueDate:null,expiryDate:null},
-    {licensingBody:"",country:"",designation:"",licenseNo:"",issueDate:null,expiryDate:null},
+    {licensingBody:"",country:"",designation:"",licenseNo:"",issueDate:"",expiryDate:""},
+    {licensingBody:"",country:"",designation:"",licenseNo:"",issueDate:"",expiryDate:""},
   ]);
 
   // S7 — Experience
@@ -349,11 +349,6 @@ export default function App(){
   const [emergencyName,setEmergencyName]=useState("");
   const [emergencyRelation,setEmergencyRelation]=useState("");
   const [emergencyMobile,setEmergencyMobile]=useState("");
-  const [courses,setCourses]=useState([
-    {name:"",date:"",title:""},
-    {name:"",date:"",title:""},
-    {name:"",date:"",title:""},
-  ]);
   const [lastEmploymentDate,setLastEmploymentDate]=useState("");
   const [currentlyEmployed,setCurrentlyEmployed]=useState("");
   const [dateLeft,setDateLeft]=useState(null);
@@ -406,7 +401,7 @@ export default function App(){
       qualLevel,gradCountry,
       qualifications:qualifications.map(q=>({date:fmt(q.dateRange),degree:q.degree,institution:q.institution,country:q.country})),
       training:training.map(t=>({date:fmt(t.dateRange),discipline:t.discipline,institution:t.institution,country:t.country,courseTitle:t.courseTitle||''})),
-      licenses:licenses.map(l=>({licensingBody:l.licensingBody,country:l.country,designation:l.designation,licenseNo:l.licenseNo,issueDate:fmt(l.issueDate),expiryDate:fmt(l.expiryDate),authority:l.licensingBody})),
+      licenses:licenses.map(l=>({licensingBody:l.licensingBody,country:l.country,designation:l.designation,licenseNo:l.licenseNo,issueDate:l.issueDate||"",expiryDate:l.expiryDate||"",authority:l.licensingBody})),
       experience:experience.map(ex=>({date:fmt(ex.dateRange),position:ex.position,institution:ex.institution,country:ex.country,wardUnit:ex.wardUnit||''})),
       applicantSignature,
       documents:docs,
@@ -414,7 +409,6 @@ export default function App(){
       nghaLocations,placeOfBirth,permanentAddress,currentAddress,
       spouseName,spouseInKingdom,iqamaNo,companySponsor,visaType,
       emergencyName,emergencyRelation,emergencyMobile,
-      courses:courses.map(c=>({name:c.name,date:c.date,title:c.title})),
       lastEmploymentDate,currentlyEmployed,dateLeft,
       references:references.map(r=>({name:r.name,jobTitle:r.jobTitle,home:r.home,work:r.work,email:r.email,consent:r.consent})),
       disclosure:disclosure.map(d=>({name:d.name,position:d.position,department:d.department,relationship:d.relationship})),
@@ -605,6 +599,38 @@ export default function App(){
           </Field>
         </div>
 
+        {/* Spouse details — shown when Married */}
+        {maritalStatus==="Married" && (
+          <div className="form-grid-2" style={{marginTop:"14px"}}>
+            <Field label="Name of Spouse (Last, First)">
+              <input className="input" value={spouseName} onChange={e=>setSpouseName(e.target.value)} placeholder="Last name, First name"/>
+            </Field>
+            <Field label="Is Spouse living in the Kingdom?">
+              <select className="input" value={spouseInKingdom} onChange={e=>setSpouseInKingdom(e.target.value)}>
+                <option value="">Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </Field>
+            {spouseInKingdom==="Yes" && <>
+              <Field label="Iqama / Residency Permit No.">
+                <input className="input" value={iqamaNo} onChange={e=>setIqamaNo(e.target.value)} placeholder="Iqama number"/>
+              </Field>
+              <Field label="Company / Sponsor">
+                <input className="input" value={companySponsor} onChange={e=>setCompanySponsor(e.target.value)} placeholder="Company or sponsor name"/>
+              </Field>
+              <Field label="Visa Type">
+                <select className="input" value={visaType} onChange={e=>setVisaType(e.target.value)}>
+                  <option value="">Select</option>
+                  <option value="Work">Work</option>
+                  <option value="Dependent">Dependent</option>
+                  <option value="Visit">Visit</option>
+                </select>
+              </Field>
+            </>}
+          </div>
+        )}
+
         {/* Row 6: GCC + English + Availability */}
         <div className="form-grid-3" style={{marginTop:"14px"}}>
           <Field label="Worked in KSA / GCC Before?">
@@ -739,12 +765,12 @@ export default function App(){
               {licenses.length>1&&<RemoveRowButton onClick={()=>removeRow(setLicenses,i)}/>}
             </div>
             <div className="form-grid-2">
+              <Field label="Issue Date"><input type="date" className="input" value={l.issueDate||""} onChange={e=>updateRow(setLicenses,i,"issueDate",e.target.value)} style={{maxWidth:"160px"}}/></Field>
+              <Field label="Expiry Date"><input type="date" className="input" value={l.expiryDate||""} onChange={e=>updateRow(setLicenses,i,"expiryDate",e.target.value)} style={{maxWidth:"160px"}}/></Field>
               <Field label="Licensing Body"><input className="input" value={l.licensingBody} onChange={e=>updateRow(setLicenses,i,"licensingBody",e.target.value)} placeholder="e.g. PMDC, DHA, MOH Saudi Arabia"/></Field>
               <Field label="Country"><input className="input" value={l.country} onChange={e=>updateRow(setLicenses,i,"country",e.target.value)} placeholder="e.g. Pakistan, Saudi Arabia"/></Field>
               <Field label="Designation"><input className="input" value={l.designation} onChange={e=>updateRow(setLicenses,i,"designation",e.target.value)} placeholder="e.g. Physician, Registered Nurse"/></Field>
               <Field label="License Number"><input className="input" value={l.licenseNo} onChange={e=>updateRow(setLicenses,i,"licenseNo",e.target.value)} placeholder="e.g. PMDC-12345"/></Field>
-              <Field label="Issue Date"><DayMonthYearPicker value={l.issueDate} onChange={v=>updateRow(setLicenses,i,"issueDate",v)}/></Field>
-              <Field label="Expiry Date"><DayMonthYearPicker value={l.expiryDate} onChange={v=>updateRow(setLicenses,i,"expiryDate",v)} futureYears={true}/></Field>
             </div>
           </div>
         ))}
@@ -814,83 +840,6 @@ export default function App(){
                 ))}
               </div>
             </Field>
-
-            {/* Personal */}
-            <div className="fields-grid">
-              <Field label="Place of Birth (including Country)">
-                <input className="input" value={placeOfBirth} onChange={e=>setPlaceOfBirth(e.target.value)} placeholder="e.g. Lahore, Pakistan"/>
-              </Field>
-              <Field label="Permanent Address">
-                <input className="input" value={permanentAddress} onChange={e=>setPermanentAddress(e.target.value)} placeholder="Full permanent address"/>
-              </Field>
-              <Field label="Current Address (if different from permanent)">
-                <input className="input" value={currentAddress} onChange={e=>setCurrentAddress(e.target.value)} placeholder="Leave blank if same as permanent"/>
-              </Field>
-            </div>
-
-            {/* Spouse */}
-            {maritalStatus==="Married" && (
-              <div className="fields-grid">
-                <Field label="Name of Spouse (Last, First)">
-                  <input className="input" value={spouseName} onChange={e=>setSpouseName(e.target.value)} placeholder="Last name, First name"/>
-                </Field>
-                <Field label="Is Spouse living in the Kingdom?">
-                  <select className="input" value={spouseInKingdom} onChange={e=>setSpouseInKingdom(e.target.value)}>
-                    <option value="">Select</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
-                </Field>
-                {spouseInKingdom==="Yes" && <>
-                  <Field label="Iqama / Residency Permit No.">
-                    <input className="input" value={iqamaNo} onChange={e=>setIqamaNo(e.target.value)} placeholder="Iqama number"/>
-                  </Field>
-                  <Field label="Company / Sponsor">
-                    <input className="input" value={companySponsor} onChange={e=>setCompanySponsor(e.target.value)} placeholder="Company or sponsor name"/>
-                  </Field>
-                  <Field label="Visa Type">
-                    <select className="input" value={visaType} onChange={e=>setVisaType(e.target.value)}>
-                      <option value="">Select</option>
-                      <option value="Work">Work</option>
-                      <option value="Dependent">Dependent</option>
-                      <option value="Visit">Visit</option>
-                    </select>
-                  </Field>
-                </>}
-              </div>
-            )}
-
-            {/* Courses & Certificates */}
-            <div className="subsection-title">Courses & Certificates Attended</div>
-            {courses.map((c,i)=>(
-              <div key={i} className="row-card">
-                <div className="fields-grid">
-                  <Field label="Course / Training Name"><input className="input" value={c.name} onChange={e=>updateRow(setCourses,i,"name",e.target.value)} placeholder="Course name"/></Field>
-                  <Field label="Date Attended"><input className="input" value={c.date} onChange={e=>updateRow(setCourses,i,"date",e.target.value)} placeholder="e.g. Jan 2020"/></Field>
-                  <Field label="Course Title / Certificate"><input className="input" value={c.title} onChange={e=>updateRow(setCourses,i,"title",e.target.value)} placeholder="Certificate title"/></Field>
-                </div>
-              </div>
-            ))}
-            <button type="button" className="btn-add-row" onClick={()=>addRow(setCourses,{name:"",date:"",title:""})}>+ Add Course</button>
-
-            {/* Employment Status */}
-            <div className="fields-grid">
-              <Field label="Are you currently employed?">
-                <select className="input" value={currentlyEmployed} onChange={e=>setCurrentlyEmployed(e.target.value)}>
-                  <option value="">Select</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-              </Field>
-              {currentlyEmployed==="No" && <>
-                <Field label="Last Date of Employment">
-                  <input className="input" value={lastEmploymentDate} onChange={e=>setLastEmploymentDate(e.target.value)} placeholder="e.g. 31 Dec 2023"/>
-                </Field>
-                <Field label="Date Left Last Employment">
-                  <input className="input" value={dateLeft} onChange={e=>setDateLeft(e.target.value)} placeholder="e.g. 31 Dec 2023"/>
-                </Field>
-              </>}
-            </div>
 
             {/* NGHA Disclosure */}
             <div className="subsection-title">Disclosure — Relatives/Acquaintances in NGHA</div>
