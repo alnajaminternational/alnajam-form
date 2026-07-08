@@ -737,7 +737,7 @@ export default function App(){
 
 
         {/* ── SECTION 5: TRAINING ── */}
-        <SectionHeader number="5" title="Training / Fellowship"/>
+        <SectionHeader number="5" title="Training"/>
         {training.map((t,i)=>(
           <div key={i} className="repeating-row">
             <div className="repeating-row-header">
