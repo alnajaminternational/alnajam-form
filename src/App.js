@@ -123,7 +123,7 @@ function DayMonthYearPicker({value,onChange,futureYears}){
   const [month,setMonth]=useState(value?.month||"");
   const [year,setYear]=useState(value?.year||"");
   const yl=futureYears?FUTURE_YEARS:PAST_YEARS;
-  const update=(d,m,y)=>{setDay(d);setMonth(m);setYear(y);if(d&&m&&y)onChange({day:d,month:m,year:y,display:`${d} ${m} ${y}`});};
+  const update=(d,m,y)=>{setDay(d);setMonth(m);setYear(y);if(d&&m&&y)onChange({day:d,month:m,year:y,display:`${String(d).padStart(2,'0')}/${String(MONTHS.indexOf(m)+1).padStart(2,'0')}/${y}`});};
   return(
     <div className="dmy-picker">
       <select className="input" value={day} onChange={e=>update(e.target.value,month,year)}><option value="">Day</option>{DAYS.map(d=><option key={d}>{d}</option>)}</select>
@@ -136,7 +136,7 @@ function MonthYearPicker({value,onChange,futureYears}){
   const [month,setMonth]=useState(value?.month||"");
   const [year,setYear]=useState(value?.year||"");
   const yl=futureYears?FUTURE_YEARS:PAST_YEARS;
-  const update=(m,y)=>{setMonth(m);setYear(y);if(m&&y)onChange({month:m,year:y,display:`${m} ${y}`});};
+  const update=(m,y)=>{setMonth(m);setYear(y);if(m&&y)onChange({month:m,year:y,display:`01/${String(MONTHS.indexOf(m)+1).padStart(2,'0')}/${y}`});};
   return(
     <div className="month-year-picker">
       <select className="input select-half" value={month} onChange={e=>update(e.target.value,year)}><option value="">Month</option>{MONTHS.map(m=><option key={m}>{m}</option>)}</select>
@@ -176,9 +176,7 @@ function DateRangePickerNew({value,onChange,allowPresent}){
   const fmtDisplay = (d) => {
     if(!d) return "";
     const [y,m,day] = d.split("-");
-    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    return `${parseInt(day)} ${months[parseInt(m)-1]} ${y}`;
-  };
+   return `${day}/${m}/${y}`;
   const [fromDate, setFromDate] = React.useState(value?.fromDate||"");
   const [toDate, setToDate]     = React.useState(value?.toDate||"");
   const [present, setPresent]   = React.useState(value?.toMonth==="Present"||false);
