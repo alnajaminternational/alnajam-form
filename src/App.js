@@ -6,12 +6,12 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5PGD_sFu9GVFmW87Hm
 // ── Sector / Position / Professional Level data ───────────────────────────────
 const SECTOR_DATA = {
   "Healthcare": {
-    "Physician":      ["Resident","Specialist","Consultant","Other"],
+    "Physician":      ["Resident","Specialist","Consultant","Othr"],
     "Nurse":          ["Male Nurse","Diploma Nurse","BSN Nurse","Post RN","Charge Nurse","Head Nurse","Chief Nurse","Other"],
-    "Allied Health":  ["Therapist","Radiographer","Lab Techniian","Pharmacist","Dietitian","Occupational Therapist","Speech Therapist","Medical Imaging","Other"],
-  },
+    "Allied Health":  ["Therapist","Radiographer","Lab Technician","Pharmacist","Dietitian","Occupational Therapist","Speech Therapist","Medical Imaging","Other"],
+
   "Engineering": {
-    "Civil Engineer":       ["Graduate Engineer","Junior Engineer","Senior Engineer","Principal Engineer","Chief Engineer","Other"],
+    "Civil Engineer":       ["Graduate Engineer","Junior Enginee","Senior Engineer","Principal Engineer","Chief Engineer","Other"],
     "Mechanical Engineer":  ["Graduate Engineer","Junior Engineer","Senior Engineer","Principal Engineer","Chief Engineer","Other"],
     "Electrical Engineer":  ["Graduate Engineer","Junior Engineer","Senior Engineer","Principal Engineer","Chief Engineer","Other"],
     "Structural Engineer":  ["Graduate Engineer","Junior Engineer","Senior Engineer","Principal Engineer","Other"],
@@ -408,7 +408,7 @@ export default function App(){
       nghaLocations,placeOfBirth,permanentAddress,currentAddress,
       spouseName,spouseInKingdom,iqamaNo,companySponsor,visaType,
       emergencyName,emergencyRelation,emergencyMobile,
-      lastEmploymentDate,currentlyEmployed,dateLeft,
+      lastEmploymentDate,currentlyEmployed,dateLeft:fmt(dateLeft),
       references:references.map(r=>({name:r.name,jobTitle:r.jobTitle,home:r.home,work:r.work,email:r.email,consent:r.consent})),
       disclosure:disclosure.map(d=>({name:d.name,position:d.position,department:d.department,relationship:d.relationship})),
     };
