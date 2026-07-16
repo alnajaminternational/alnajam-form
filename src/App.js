@@ -8,7 +8,7 @@ const SECTOR_DATA = {
   "Healthcare": {
     "Physician":      ["Resident","Specialist","Consultant","Other"],
     "Nurse":          ["Male Nurse","Diploma Nurse","BSN Nurse","Post RN","Charge Nurse","Head Nurse","Chief Nurse","Other"],
-    "Allied Health":  ["Therapist","Radiographer","Lab Technician","Pharmacist","Dietitian","Occupational Therapist","Speech Therapist","Medical Imaging","Other"],
+    "Allied Health":  ["Therapist","Radiographer","Lab Techniian","Pharmacist","Dietitian","Occupational Therapist","Speech Therapist","Medical Imaging","Other"],
   },
   "Engineering": {
     "Civil Engineer":       ["Graduate Engineer","Junior Engineer","Senior Engineer","Principal Engineer","Chief Engineer","Other"],
@@ -177,6 +177,7 @@ function DateRangePickerNew({value,onChange,allowPresent}){
     if(!d) return "";
     const [y,m,day] = d.split("-");
    return `${day}/${m}/${y}`;
+  };
   const [fromDate, setFromDate] = React.useState(value?.fromDate||"");
   const [toDate, setToDate]     = React.useState(value?.toDate||"");
   const [present, setPresent]   = React.useState(value?.toMonth==="Present"||false);
