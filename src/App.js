@@ -9,7 +9,7 @@ const SECTOR_DATA = {
     "Physician":      ["Resident","Specialist","Consultant","Othr"],
     "Nurse":          ["Male Nurse","Diploma Nurse","BSN Nurse","Post RN","Charge Nurse","Head Nurse","Chief Nurse","Other"],
     "Allied Health":  ["Therapist","Radiographer","Lab Technician","Pharmacist","Dietitian","Occupational Therapist","Speech Therapist","Medical Imaging","Other"],
-
+  },
   "Engineering": {
     "Civil Engineer":       ["Graduate Engineer","Junior Enginee","Senior Engineer","Principal Engineer","Chief Engineer","Other"],
     "Mechanical Engineer":  ["Graduate Engineer","Junior Engineer","Senior Engineer","Principal Engineer","Chief Engineer","Other"],
