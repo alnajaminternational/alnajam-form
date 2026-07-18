@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwn-SQ9VTMC0I8WiWdE-gP5e0enO63biijNwCPV4fJZ6UGgZQ4HnSR0hNZm-ch9YdKr7A";
+const SUBMIT_URL = "/submit";
 
-// ── Sector / Position / Professional Level data ───────────────────────────────
+// ââ Sector / Position / Professional Level data âââââââââââââââââââââââââââââââ
 const SECTOR_DATA = {
   "Healthcare": {
     "Physician":      ["Resident","Specialist","Consultant","Othr"],
@@ -100,7 +100,7 @@ const DAYS        = Array.from({length:31},(_,i)=>String(i+1));
 const PAST_YEARS  = Array.from({length:60},(_,i)=>new Date().getFullYear()-i);
 const FUTURE_YEARS= Array.from({length:20},(_,i)=>new Date().getFullYear()+i);
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// ââ Helpers âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function SectionHeader({number,title}){
   return(
     <div className="section-header">
@@ -152,7 +152,7 @@ function DateRangePicker({value,onChange,allowPresent}){
   const buildDisplay=(fm,fy,tm,ty)=>{
     const from=fm&&fy?`${fm} ${fy}`:"";
     const to=tm==="Present"?"Present":(tm&&ty?`${tm} ${ty}`:"");
-    return from&&to?`${from} – ${to}`:from||to;
+    return from&&to?`${from} â ${to}`:from||to;
   };
   const update=(fm,fy,tm,ty)=>{setFromM(fm);setFromY(fy);setToM(tm);setToY(ty);onChange({fromMonth:fm,fromYear:fy,toMonth:tm,toYear:ty,display:buildDisplay(fm,fy,tm,ty)});};
   return(
@@ -229,7 +229,7 @@ function FileUpload({label,accept,value,onChange,hint,icon}){
       {hint&&<span className="field-hint">{hint}</span>}
       <label className="file-drop">
         <input type="file" accept={accept} onChange={handleChange} className="file-input"/>
-        {value?<span className="file-chosen">✅ {value.name}</span>:<span className="file-placeholder">📎 Click to upload</span>}
+        {value?<span className="file-chosen">â {value.name}</span>:<span className="file-placeholder">ð Click to upload</span>}
       </label>
     </div>
   );
@@ -246,18 +246,18 @@ function InlineUpload({label,accept,value,onChange,hint}){
     <label className="inline-upload">
       <input type="file" accept={accept} onChange={handleChange} className="file-input"/>
       {value
-        ?<span className="inline-chosen">✅ {value.name}</span>
-        :<span className="inline-placeholder">📎 {label}</span>
+        ?<span className="inline-chosen">â {value.name}</span>
+        :<span className="inline-placeholder">ð {label}</span>
       }
     </label>
   );
 }
 function AddRowButton({onClick,label}){return <button type="button" className="add-row-btn" onClick={onClick}>+ Add {label}</button>;}
-function RemoveRowButton({onClick}){return <button type="button" className="remove-row-btn" onClick={onClick}>✕</button>;}
+function RemoveRowButton({onClick}){return <button type="button" className="remove-row-btn" onClick={onClick}>â</button>;}
 function UploadGroup({title,uploads}){
   return(
     <div className="upload-group">
-      <div className="upload-group-title">📎 {title}</div>
+      <div className="upload-group-title">ð {title}</div>
       <div className="upload-grid">
         {uploads.map((u,i)=><InlineUpload key={i} label={u.label} accept={u.accept||"application/pdf"} value={u.value} onChange={u.onChange}/>)}
       </div>
@@ -265,9 +265,9 @@ function UploadGroup({title,uploads}){
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 // MAIN APP
-// ═══════════════════════════════════════════════════════════════════════════════
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export default function App(){
   const [step,setStep]=useState("form");
   const [errorMsg,setErrorMsg]=useState("");
@@ -276,16 +276,16 @@ export default function App(){
   const [applyingFor,setApplyingFor]=useState("");
   const [applyingForOther,setApplyingForOther]=useState("");
 
-  // S1 — Position
+  // S1 â Position
   const [sector,setSector]=useState("");
   const [position,setPosition]=useState("");
   const [profLevel,setProfLevel]=useState("");
   const [specialty,setSpecialty]=useState("");
 
-  // S2 — Key Skills
+  // S2 â Key Skills
   const [skills,setSkills]=useState(["","","","","","","",""]);
 
-  // S3 — Personal
+  // S3 â Personal
   const [fullName,setFullName]=useState("");
   const [cnic,setCnic]=useState("");
   const [cnicError,setCnicError]=useState("");
@@ -306,7 +306,7 @@ export default function App(){
   const [phone,setPhone]=useState("");
   const [address,setAddress]=useState("");
 
-  // S4 — Education
+  // S4 â Education
   const [qualLevel,setQualLevel]=useState("");
   const [gradCountry,setGradCountry]=useState("");
   const [qualifications,setQualifications]=useState([
@@ -315,19 +315,19 @@ export default function App(){
     {dateRange:null,degree:"",institution:"",country:""},
   ]);
 
-  // S5 — Training
+  // S5 â Training
   const [training,setTraining]=useState([
     {dateRange:null,discipline:"",institution:"",country:""},
     {dateRange:null,discipline:"",institution:"",country:""},
   ]);
 
-  // S6 — Licensing
+  // S6 â Licensing
   const [licenses,setLicenses]=useState([
     {licensingBody:"",country:"",designation:"",licenseNo:"",issueDate:"",expiryDate:""},
     {licensingBody:"",country:"",designation:"",licenseNo:"",issueDate:"",expiryDate:""},
   ]);
 
-  // S7 — Experience
+  // S7 â Experience
   const [experience,setExperience]=useState([
     {dateRange:null,position:"",institution:"",country:""},
     {dateRange:null,position:"",institution:"",country:""},
@@ -413,22 +413,23 @@ export default function App(){
       disclosure:disclosure.map(d=>({name:d.name,position:d.position,department:d.department,relationship:d.relationship})),
     };
     try{
-      // Strip documents from main payload — too large for URL encoding
+      // Strip documents from main payload â too large for URL encoding
       // Send as JSON via fetch with text/plain to avoid CORS preflight
       const {documents:_docs, ...textPayload} = payload;
-      await fetch(SCRIPT_URL, {
+      const resp = await fetch(SUBMIT_URL, {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: {"Content-Type": "text/plain"},
-        mode: "no-cors",
+        headers: {"Content-Type": "application/json"},
       });
+      const result = await resp.json();
+      if(!result.success) throw new Error(result.error || "Submission failed. Please try again.");
       setStep("success");
     }catch(err){setErrorMsg(err.message);setStep("error");}
   };
 
   if(step==="success") return(
     <div className="page-wrap"><div className="status-card">
-      <div className="status-icon">✅</div>
+      <div className="status-icon">â</div>
       <h2>Application Submitted!</h2>
       <p>Thank you <strong>{fullName}</strong>. Your application has been received and will be reviewed shortly.</p>
       <p className="success-ref">Reference CNIC: {cnic}</p>
@@ -442,7 +443,7 @@ export default function App(){
   );
   if(step==="error") return(
     <div className="page-wrap"><div className="status-card">
-      <div className="status-icon">❌</div><h2>Submission Failed</h2>
+      <div className="status-icon">â</div><h2>Submission Failed</h2>
       <p>{errorMsg}</p>
       <button className="btn-primary" onClick={()=>setStep("form")}>Try Again</button>
     </div></div>
@@ -461,7 +462,7 @@ export default function App(){
           <img src="/logo.png" alt="Al Najam International" className="header-logo"/>
           <div className="header-text">
             <h1 className="header-title">RECRUITMENT APPLICATION FORM</h1>
-            <p className="header-sub">Al Najam International — Human Resource Providers Since 1971 &nbsp;|&nbsp; License # 0899/LHR</p>
+            <p className="header-sub">Al Najam International â Human Resource Providers Since 1971 &nbsp;|&nbsp; License # 0899/LHR</p>
           </div>
         </div>
         <div className="header-bar"/>
@@ -469,16 +470,16 @@ export default function App(){
 
       <form className="form-body" onSubmit={handleSubmit} onKeyDown={e=>{if(e.key==="Enter"&&e.target.type!=="submit")e.preventDefault();}}>
 
-        {/* ── SECTION 1: POSITION ── */}
+        {/* ââ SECTION 1: POSITION ââ */}
         <div className="section-card">
           <SectionHeader number="0" title="Application For"/>
           <div className="fields-grid">
             <Field label="Which organisation are you applying to?" required>
               <select className="input" value={applyingFor} onChange={e=>{setApplyingFor(e.target.value);setApplyingForOther("");}} required>
                 <option value="">Select Organisation</option>
-                <option value="NGHA">NGHA — National Guards Health Affairs</option>
-                <option value="MOH">MOH — Saudi Health Cluster</option>
-                <option value="MODA">MODA — Ministry of Defence</option>
+                <option value="NGHA">NGHA â National Guards Health Affairs</option>
+                <option value="MOH">MOH â Saudi Health Cluster</option>
+                <option value="MODA">MODA â Ministry of Defence</option>
                 <option value="Other">Other</option>
               </select>
             </Field>
@@ -514,7 +515,7 @@ export default function App(){
             <input className="input" value={specialty} onChange={e=>setSpecialty(e.target.value)} placeholder="e.g. Cardiology, Structural, AutoCAD"/>
           </Field>
         </div>
-        {/* ── SECTION 2: KEY SKILLS ── */}
+        {/* ââ SECTION 2: KEY SKILLS ââ */}
         <SectionHeader number="2" title="Key Skills"/>
         <p className="section-note">Enter up to 8 skills relevant to your position (e.g. Patient Assessment, AutoCAD, Project Budgeting)</p>
         <div className="form-grid-4">
@@ -529,7 +530,7 @@ export default function App(){
 
         {/* Row 1: Full Name + CNIC */}
         <div className="form-grid-2">
-          <Field label="Full Name — as per your degree" required>
+          <Field label="Full Name â as per your degree" required>
             <input className="input" value={fullName} onChange={e=>setFullName(e.target.value)} placeholder="Full name as per your degree" required/>
           </Field>
           <Field label="CNIC" required>
@@ -598,7 +599,7 @@ export default function App(){
           </Field>
         </div>
 
-        {/* Spouse details — shown when Married */}
+        {/* Spouse details â shown when Married */}
         {maritalStatus==="Married" && (
           <div className="form-grid-2" style={{marginTop:"14px"}}>
             <Field label="Name of Spouse (Last, First)">
@@ -651,7 +652,7 @@ export default function App(){
 
         {/* Contact block */}
         <div className="contact-block" style={{marginTop:"16px"}}>
-          <div className="contact-block-title">📍 Contact Details</div>
+          <div className="contact-block-title">ð Contact Details</div>
           <div className="form-grid-2">
             <Field label="Email Address" required>
               <input className="input" type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="email@example.com" required/>
@@ -667,10 +668,10 @@ export default function App(){
 
         {/* Emergency contact block */}
         <div className="emergency-block">
-          <div className="emergency-block-title">🚨 Emergency Contact</div>
+          <div className="emergency-block-title">ð¨ Emergency Contact</div>
           <div className="form-grid-2">
             <Field label="Name & Relationship">
-              <input className="input" value={emergencyName} onChange={e=>setEmergencyName(e.target.value)} placeholder="e.g. Ahmed Khan — Brother"/>
+              <input className="input" value={emergencyName} onChange={e=>setEmergencyName(e.target.value)} placeholder="e.g. Ahmed Khan â Brother"/>
             </Field>
             <Field label="Mobile">
               <input className="input" value={emergencyMobile} onChange={e=>setEmergencyMobile(e.target.value)} placeholder="+92 300 1234567"/>
@@ -680,7 +681,7 @@ export default function App(){
 
         {/* Employment status block */}
         <div className="employment-block">
-          <div className="employment-block-title">💼 Current Employment Status</div>
+          <div className="employment-block-title">ð¼ Current Employment Status</div>
           <div className="form-grid-2">
             <Field label="Currently Employed?">
               <select className="input" value={currentlyEmployed} onChange={e=>setCurrentlyEmployed(e.target.value)}>
@@ -695,7 +696,7 @@ export default function App(){
           </div>
         </div>
 
-        {/* ── SECTION 4: EDUCATION ── */}
+        {/* ââ SECTION 4: EDUCATION ââ */}
         <SectionHeader number="4" title="Education (most recent first)"/>
         <div className="form-grid-2">
           <Field label="Highest Qualification Level">
@@ -735,7 +736,7 @@ export default function App(){
         <AddRowButton onClick={()=>addRow(setQualifications,{dateRange:null,degree:"",institution:"",country:""})} label="Qualification"/>
 
 
-        {/* ── SECTION 5: TRAINING ── */}
+        {/* ââ SECTION 5: TRAINING ââ */}
         <SectionHeader number="5" title="Training"/>
         {training.map((t,i)=>(
           <div key={i} className="repeating-row">
@@ -755,7 +756,7 @@ export default function App(){
         <AddRowButton onClick={()=>addRow(setTraining,{dateRange:null,discipline:"",institution:"",country:""})} label="Training"/>
 
 
-        {/* ── SECTION 6: LICENSING ── */}
+        {/* ââ SECTION 6: LICENSING ââ */}
         <SectionHeader number="6" title="Professional Licenses"/>
         {licenses.map((l,i)=>(
           <div key={i} className="repeating-row">
@@ -776,7 +777,7 @@ export default function App(){
         <AddRowButton onClick={()=>addRow(setLicenses,{licensingBody:"",country:"",designation:"",licenseNo:"",issueDate:null,expiryDate:null})} label="License"/>
 
 
-        {/* ── SECTION 7: EXPERIENCE ── */}
+        {/* ââ SECTION 7: EXPERIENCE ââ */}
         <SectionHeader number="7" title="Work Experience (most recent first)"/>
         {experience.map((ex,i)=>(
           <div key={i} className="repeating-row">
@@ -789,14 +790,14 @@ export default function App(){
               <Field label="Position / Designation"><input className="input" value={ex.position} onChange={e=>updateRow(setExperience,i,"position",e.target.value)} placeholder="e.g. Consultant Physician"/></Field>
               <Field label="Institution / Employer"><input className="input" value={ex.institution} onChange={e=>updateRow(setExperience,i,"institution",e.target.value)} placeholder="Hospital / Company name"/></Field>
               <Field label="Country"><input className="input" value={ex.country} onChange={e=>updateRow(setExperience,i,"country",e.target.value)} placeholder="e.g. Pakistan"/></Field>
-              <Field label="Ward / Unit / Dept — Nurses Only" hint="No. of beds in unit / nurse-to-patient ratio, if applicable"><input className="input" value={ex.wardUnit||""} onChange={e=>updateRow(setExperience,i,"wardUnit",e.target.value)} placeholder="e.g. ICU — 20 beds — 1:2 ratio"/></Field>
+              <Field label="Ward / Unit / Dept â Nurses Only" hint="No. of beds in unit / nurse-to-patient ratio, if applicable"><input className="input" value={ex.wardUnit||""} onChange={e=>updateRow(setExperience,i,"wardUnit",e.target.value)} placeholder="e.g. ICU â 20 beds â 1:2 ratio"/></Field>
             </div>
           </div>
         ))}
         <AddRowButton onClick={()=>addRow(setExperience,{dateRange:null,position:"",institution:"",country:""})} label="Experience"/>
 
 
-        {/* ── SECTION 8: WORK REFERENCES ── */}
+        {/* ââ SECTION 8: WORK REFERENCES ââ */}
         <SectionHeader number="8" title="Work References"/>
         <p className="section-note">Please provide 2 work-related references who may be contacted.</p>
         {references.map((r,i)=>(
@@ -812,7 +813,7 @@ export default function App(){
                 <select className="input" value={r.consent} onChange={e=>updateRow(setReferences,i,"consent",e.target.value)}>
                   <option value="">Select</option>
                   <option value="Yes">Yes</option>
-                  <option value="No — will not be contacted until consent is sought">No — will not be contacted until consent is sought</option>
+                  <option value="No â will not be contacted until consent is sought">No â will not be contacted until consent is sought</option>
                 </select>
               </Field>
             </div>
@@ -821,7 +822,7 @@ export default function App(){
 
         {/* SUBMIT */}
 
-        {/* NGHA Additional Section — shown only for NGHA + Nurse or Allied Health */}
+        {/* NGHA Additional Section â shown only for NGHA + Nurse or Allied Health */}
         {applyingFor==="NGHA" && (sector==="Healthcare") && (position==="Nurse"||position==="Allied Health") && (
           <div className="section-card ngha-additional">
             <SectionHeader number="8" title="NGHA Additional Information"/>
@@ -841,7 +842,7 @@ export default function App(){
             </Field>
 
             {/* NGHA Disclosure */}
-            <div className="subsection-title">Disclosure — Relatives/Acquaintances in NGHA</div>
+            <div className="subsection-title">Disclosure â Relatives/Acquaintances in NGHA</div>
             <p className="section-note">Please list any relatives or acquaintances currently employed in any Ministry of National Guard Health Affairs facility.</p>
             <table className="disclosure-table">
               <thead><tr><th>#</th><th>Name</th><th>Position</th><th>Department</th><th>Relationship</th></tr></thead>
@@ -861,7 +862,7 @@ export default function App(){
         )}
 
 
-        {/* ── SECTION 9: DECLARATION & SIGNATURE ── */}
+        {/* ââ SECTION 9: DECLARATION & SIGNATURE ââ */}
         <div className="section-card">
           <SectionHeader number="9" title="Declaration &amp; Signature"/>
           <p className="section-note">By signing below, you confirm that all information provided is accurate and complete to the best of your knowledge.</p>
@@ -876,16 +877,16 @@ export default function App(){
           </div>
         </div>
 
-                {/* ── DOCUMENT UPLOADS ── */}
+                {/* ââ DOCUMENT UPLOADS ââ */}
         <div className="doc-upload-section">
           <div className="doc-upload-header">
-            <span className="section-number">📎</span>
+            <span className="section-number">ð</span>
             <span className="section-title" style={{color:"#fff"}}>Document Uploads</span>
           </div>
           <p className="doc-upload-note">Please upload all relevant documents to ensure your profile gets completed and processed at the earliest.</p>
           <p className="doc-upload-note">Maximum 10MB per file. Documents can be uploaded as JPG, PNG or PDF.</p>
 
-          <div className="doc-group-title">📋 Identity Documents</div>
+          <div className="doc-group-title">ð Identity Documents</div>
           <div className="doc-upload-grid">
             <InlineUpload label="Picture" accept="image/jpeg,image/png,application/pdf" value={docs.photo} onChange={v=>setDoc("photo",v)}/>
             <InlineUpload label="CNIC Copy" accept="image/jpeg,image/png,application/pdf" value={docs.cnicCopy} onChange={v=>setDoc("cnicCopy",v)}/>
@@ -893,7 +894,7 @@ export default function App(){
             <InlineUpload label="CV" accept="image/jpeg,image/png,application/pdf" value={docs.cv} onChange={v=>setDoc("cv",v)}/>
           </div>
 
-          <div className="doc-group-title">🎓 Education Certificates</div>
+          <div className="doc-group-title">ð Education Certificates</div>
           <div className="doc-upload-grid">
             <InlineUpload label="Education 1" accept="image/jpeg,image/png,application/pdf" value={docs.eduCert1} onChange={v=>setDoc("eduCert1",v)}/>
             <InlineUpload label="Education 2" accept="image/jpeg,image/png,application/pdf" value={docs.eduCert2} onChange={v=>setDoc("eduCert2",v)}/>
@@ -902,27 +903,27 @@ export default function App(){
             <InlineUpload label="Education 5" accept="image/jpeg,image/png,application/pdf" value={docs.eduCert5} onChange={v=>setDoc("eduCert5",v)}/>
           </div>
 
-          <div className="doc-group-title">🏅 Training Certificates</div>
+          <div className="doc-group-title">ð Training Certificates</div>
           <div className="doc-upload-grid">
             <InlineUpload label="Training 1" accept="image/jpeg,image/png,application/pdf" value={docs.trainCert1} onChange={v=>setDoc("trainCert1",v)}/>
             <InlineUpload label="Training 2" accept="image/jpeg,image/png,application/pdf" value={docs.trainCert2} onChange={v=>setDoc("trainCert2",v)}/>
             <InlineUpload label="Training 3" accept="image/jpeg,image/png,application/pdf" value={docs.trainCert3} onChange={v=>setDoc("trainCert3",v)}/>
           </div>
 
-          <div className="doc-group-title">📜 License Documents</div>
+          <div className="doc-group-title">ð License Documents</div>
           <div className="doc-upload-grid">
             <InlineUpload label="License 1" accept="image/jpeg,image/png,application/pdf" value={docs.license1} onChange={v=>setDoc("license1",v)}/>
             <InlineUpload label="License 2" accept="image/jpeg,image/png,application/pdf" value={docs.license2} onChange={v=>setDoc("license2",v)}/>
             <InlineUpload label="License 3" accept="image/jpeg,image/png,application/pdf" value={docs.license3} onChange={v=>setDoc("license3",v)}/>
           </div>
 
-          <div className="doc-group-title">✅ Dataflow Report</div>
+          <div className="doc-group-title">â Dataflow Report</div>
           <div className="doc-upload-grid">
             <InlineUpload label="Upload Dataflow Report" accept="image/jpeg,image/png,application/pdf" value={docs.dataflow} onChange={v=>setDoc("dataflow",v)}/>
           </div>
           <p className="doc-dataflow-note">Please upload your Dataflow primary source verification report using the button above.</p>
 
-          <div className="doc-group-title">💼 Experience Certificates</div>
+          <div className="doc-group-title">ð¼ Experience Certificates</div>
           <div className="doc-upload-grid">
             <InlineUpload label="Experience 1" accept="image/jpeg,image/png,application/pdf" value={docs.expCert1} onChange={v=>setDoc("expCert1",v)}/>
             <InlineUpload label="Experience 2" accept="image/jpeg,image/png,application/pdf" value={docs.expCert2} onChange={v=>setDoc("expCert2",v)}/>
@@ -936,7 +937,7 @@ export default function App(){
 
         <div className="submit-section">
           <p className="submit-note">By submitting this form you confirm that all information provided is accurate and complete.</p>
-          <button type="submit" className="btn-submit">Submit Application →</button>
+          <button type="submit" className="btn-submit">Submit Application â</button>
         </div>
 
       </form>
