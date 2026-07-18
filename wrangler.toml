@@ -1,5 +1,6 @@
 name = "alnajam-apply"
 compatibility_date = "2024-09-19"
+main = "worker.js"
 
 [assets]
 directory = "./build"
