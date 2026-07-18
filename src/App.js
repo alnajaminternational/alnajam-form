@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 
 const SUBMIT_URL = "/submit";
+const MDASH = String.fromCharCode(8212); // em dash
 
 // ââ Sector / Position / Professional Level data âââââââââââââââââââââââââââââââ
 const SECTOR_DATA = {
@@ -462,7 +463,7 @@ export default function App(){
           <img src="/logo.png" alt="Al Najam International" className="header-logo"/>
           <div className="header-text">
             <h1 className="header-title">RECRUITMENT APPLICATION FORM</h1>
-            <p className="header-sub">Al Najam International â Human Resource Providers Since 1971 &nbsp;|&nbsp; License # 0899/LHR</p>
+            <p className="header-sub">Al Najam International {MDASH} Human Resource Providers Since 1971 &nbsp;|&nbsp; License # 0899/LHR</p>
           </div>
         </div>
         <div className="header-bar"/>
@@ -477,9 +478,9 @@ export default function App(){
             <Field label="Which organisation are you applying to?" required>
               <select className="input" value={applyingFor} onChange={e=>{setApplyingFor(e.target.value);setApplyingForOther("");}} required>
                 <option value="">Select Organisation</option>
-                <option value="NGHA">NGHA â National Guards Health Affairs</option>
-                <option value="MOH">MOH â Saudi Health Cluster</option>
-                <option value="MODA">MODA â Ministry of Defence</option>
+                <option value="NGHA">NGHA {MDASH} National Guards Health Affairs</option>
+                <option value="MOH">MOH {MDASH} Saudi Health Cluster</option>
+                <option value="MODA">MODA {MDASH} Ministry of Defence</option>
                 <option value="Other">Other</option>
               </select>
             </Field>
@@ -530,7 +531,7 @@ export default function App(){
 
         {/* Row 1: Full Name + CNIC */}
         <div className="form-grid-2">
-          <Field label="Full Name â as per your degree" required>
+          <Field label={"Full Name " + MDASH + " as per your degree"} required>
             <input className="input" value={fullName} onChange={e=>setFullName(e.target.value)} placeholder="Full name as per your degree" required/>
           </Field>
           <Field label="CNIC" required>
@@ -671,7 +672,7 @@ export default function App(){
           <div className="emergency-block-title">ð¨ Emergency Contact</div>
           <div className="form-grid-2">
             <Field label="Name & Relationship">
-              <input className="input" value={emergencyName} onChange={e=>setEmergencyName(e.target.value)} placeholder="e.g. Ahmed Khan â Brother"/>
+              <input className="input" value={emergencyName} onChange={e=>setEmergencyName(e.target.value)} placeholder={"e.g. Ahmed Khan " + MDASH + " Brother"}/>
             </Field>
             <Field label="Mobile">
               <input className="input" value={emergencyMobile} onChange={e=>setEmergencyMobile(e.target.value)} placeholder="+92 300 1234567"/>
@@ -790,7 +791,7 @@ export default function App(){
               <Field label="Position / Designation"><input className="input" value={ex.position} onChange={e=>updateRow(setExperience,i,"position",e.target.value)} placeholder="e.g. Consultant Physician"/></Field>
               <Field label="Institution / Employer"><input className="input" value={ex.institution} onChange={e=>updateRow(setExperience,i,"institution",e.target.value)} placeholder="Hospital / Company name"/></Field>
               <Field label="Country"><input className="input" value={ex.country} onChange={e=>updateRow(setExperience,i,"country",e.target.value)} placeholder="e.g. Pakistan"/></Field>
-              <Field label="Ward / Unit / Dept â Nurses Only" hint="No. of beds in unit / nurse-to-patient ratio, if applicable"><input className="input" value={ex.wardUnit||""} onChange={e=>updateRow(setExperience,i,"wardUnit",e.target.value)} placeholder="e.g. ICU â 20 beds â 1:2 ratio"/></Field>
+              <Field label="Ward / Unit / Dept {MDASH} Nurses Only" hint="No. of beds in unit / nurse-to-patient ratio, if applicable"><input className="input" value={ex.wardUnit||""} onChange={e=>updateRow(setExperience,i,"wardUnit",e.target.value)} placeholder={"e.g. ICU " + MDASH + " 20 beds " + MDASH + " 1:2 ratio"}/></Field>
             </div>
           </div>
         ))}
@@ -813,7 +814,7 @@ export default function App(){
                 <select className="input" value={r.consent} onChange={e=>updateRow(setReferences,i,"consent",e.target.value)}>
                   <option value="">Select</option>
                   <option value="Yes">Yes</option>
-                  <option value="No â will not be contacted until consent is sought">No â will not be contacted until consent is sought</option>
+                  <option value={"No " + MDASH + " will not be contacted until consent is sought">No {MDASH} will not be contacted until consent is sought</option>
                 </select>
               </Field>
             </div>
